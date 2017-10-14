@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.SysAuthResRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.SysAuthResRelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="auth_code" property="authCode" jdbcType="VARCHAR" />
+    <result column="res_code" property="resCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, auth_code, res_code, create_date, create_by, modify_date, modify_by
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_auth_res_relation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_auth_res_relation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.framework.model.SysAuthResRelation" >
+    insert into sys_auth_res_relation (id, auth_code, res_code, 
+      create_date, create_by, modify_date, 
+      modify_by)
+    values (#{id,jdbcType=INTEGER}, #{authCode,jdbcType=VARCHAR}, #{resCode,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.SysAuthResRelation" >
+    insert into sys_auth_res_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="authCode != null" >
+        auth_code,
+      </if>
+      <if test="resCode != null" >
+        res_code,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="authCode != null" >
+        #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null" >
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.SysAuthResRelation" >
+    update sys_auth_res_relation
+    <set >
+      <if test="authCode != null" >
+        auth_code = #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null" >
+        res_code = #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.SysAuthResRelation" >
+    update sys_auth_res_relation
+    set auth_code = #{authCode,jdbcType=VARCHAR},
+      res_code = #{resCode,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

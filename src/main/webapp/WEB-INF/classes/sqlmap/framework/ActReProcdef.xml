@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.ActReProcdefMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.ActReProcdef" >
+    <id column="ID_" property="id" jdbcType="VARCHAR" />
+    <result column="REV_" property="rev" jdbcType="INTEGER" />
+    <result column="CATEGORY_" property="category" jdbcType="VARCHAR" />
+    <result column="NAME_" property="name" jdbcType="VARCHAR" />
+    <result column="KEY_" property="key" jdbcType="VARCHAR" />
+    <result column="VERSION_" property="version" jdbcType="INTEGER" />
+    <result column="DEPLOYMENT_ID_" property="deploymentId" jdbcType="VARCHAR" />
+    <result column="RESOURCE_NAME_" property="resourceName" jdbcType="VARCHAR" />
+    <result column="DGRM_RESOURCE_NAME_" property="dgrmResourceName" jdbcType="VARCHAR" />
+    <result column="DESCRIPTION_" property="description" jdbcType="VARCHAR" />
+    <result column="HAS_START_FORM_KEY_" property="hasStartFormKey" jdbcType="TINYINT" />
+    <result column="SUSPENSION_STATE_" property="suspensionState" jdbcType="INTEGER" />
+    <result column="TENANT_ID_" property="tenantId" jdbcType="VARCHAR" />
+    <result column="HAS_GRAPHICAL_NOTATION_" property="hasGraphicalNotation" jdbcType="TINYINT" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+  	ID_,
+  	REV_,
+  	CATEGORY_,
+  	NAME_,
+  	KEY_,
+  	VERSION_,
+  	DEPLOYMENT_ID_,
+  	RESOURCE_NAME_,
+  	DGRM_RESOURCE_NAME_,
+  	DESCRIPTION_,
+  	HAS_START_FORM_KEY_,
+  	SUSPENSION_STATE_,
+  	TENANT_ID_,
+  	HAS_GRAPHICAL_NOTATION_
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from act_re_procdef
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from act_re_procdef
+   where ID_ = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.framework.model.ActReProcdef" >
+    insert into act_re_procdef (
+		ID_,
+		REV_,
+		CATEGORY_,
+		NAME_,
+		KEY_,
+		VERSION_,
+		DEPLOYMENT_ID_,
+		RESOURCE_NAME_,
+		DGRM_RESOURCE_NAME_,
+		DESCRIPTION_,
+		HAS_START_FORM_KEY_,
+		SUSPENSION_STATE_,
+		TENANT_ID_,
+		HAS_GRAPHICAL_NOTATION_
+    )
+    values (
+    	#{id,jdbcType=VARCHAR},
+    	#{rev,jdbcType=INTEGER},
+    	#{category,jdbcType=VARCHAR},
+    	#{name,jdbcType=VARCHAR},
+    	#{key,jdbcType=VARCHAR},
+    	#{version,jdbcType=INTEGER},
+    	#{deploymentId,jdbcType=VARCHAR},
+    	#{resourceName,jdbcType=VARCHAR},
+    	#{dgrmResourceName,jdbcType=VARCHAR},
+    	#{description,jdbcType=VARCHAR},
+    	#{hasStartFormKey,jdbcType=TINYINT},
+    	#{suspensionState,jdbcType=INTEGER},
+    	#{tenantId,jdbcType=VARCHAR},
+    	#{hasGraphicalNotation,jdbcType=TINYINT}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.ActReProcdef" >
+    insert into act_re_procdef
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    	<if test="id != null" >
+        ID_,
+      	</if>
+    	<if test="rev != null" >
+        REV_,
+      	</if>
+    	<if test="category != null" >
+        CATEGORY_,
+      	</if>
+    	<if test="name != null" >
+        NAME_,
+      	</if>
+    	<if test="key != null" >
+        KEY_,
+      	</if>
+    	<if test="version != null" >
+        VERSION_,
+      	</if>
+    	<if test="deploymentId != null" >
+        DEPLOYMENT_ID_,
+      	</if>
+    	<if test="resourceName != null" >
+        RESOURCE_NAME_,
+      	</if>
+    	<if test="dgrmResourceName != null" >
+        DGRM_RESOURCE_NAME_,
+      	</if>
+    	<if test="description != null" >
+        DESCRIPTION_,
+      	</if>
+    	<if test="hasStartFormKey != null" >
+        HAS_START_FORM_KEY_,
+      	</if>
+    	<if test="suspensionState != null" >
+        SUSPENSION_STATE_,
+      	</if>
+    	<if test="tenantId != null" >
+        TENANT_ID_,
+      	</if>
+    	<if test="hasGraphicalNotation != null" >
+        HAS_GRAPHICAL_NOTATION_,
+      	</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      	</if>
+      	<if test="rev != null" >
+        #{rev,jdbcType=INTEGER},
+      	</if>
+      	<if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      	</if>
+      	<if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      	</if>
+      	<if test="key != null" >
+        #{key,jdbcType=VARCHAR},
+      	</if>
+      	<if test="version != null" >
+        #{version,jdbcType=INTEGER},
+      	</if>
+      	<if test="deploymentId != null" >
+        #{deploymentId,jdbcType=VARCHAR},
+      	</if>
+      	<if test="resourceName != null" >
+        #{resourceName,jdbcType=VARCHAR},
+      	</if>
+      	<if test="dgrmResourceName != null" >
+        #{dgrmResourceName,jdbcType=VARCHAR},
+      	</if>
+      	<if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      	</if>
+      	<if test="hasStartFormKey != null" >
+        #{hasStartFormKey,jdbcType=TINYINT},
+      	</if>
+      	<if test="suspensionState != null" >
+        #{suspensionState,jdbcType=INTEGER},
+      	</if>
+      	<if test="tenantId != null" >
+        #{tenantId,jdbcType=VARCHAR},
+      	</if>
+      	<if test="hasGraphicalNotation != null" >
+        #{hasGraphicalNotation,jdbcType=TINYINT},
+      	</if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.ActReProcdef" >
+    update act_re_procdef
+    <set >
+    	<if test="rev != null" >
+        REV_ = #{rev,jdbcType=INTEGER},
+      	</if>
+    	<if test="category != null" >
+        CATEGORY_ = #{category,jdbcType=VARCHAR},
+      	</if>
+    	<if test="name != null" >
+        NAME_ = #{name,jdbcType=VARCHAR},
+      	</if>
+    	<if test="key != null" >
+        KEY_ = #{key,jdbcType=VARCHAR},
+      	</if>
+    	<if test="version != null" >
+        VERSION_ = #{version,jdbcType=INTEGER},
+      	</if>
+    	<if test="deploymentId != null" >
+        DEPLOYMENT_ID_ = #{deploymentId,jdbcType=VARCHAR},
+      	</if>
+    	<if test="resourceName != null" >
+        RESOURCE_NAME_ = #{resourceName,jdbcType=VARCHAR},
+      	</if>
+    	<if test="dgrmResourceName != null" >
+        DGRM_RESOURCE_NAME_ = #{dgrmResourceName,jdbcType=VARCHAR},
+      	</if>
+    	<if test="description != null" >
+        DESCRIPTION_ = #{description,jdbcType=VARCHAR},
+      	</if>
+    	<if test="hasStartFormKey != null" >
+        HAS_START_FORM_KEY_ = #{hasStartFormKey,jdbcType=TINYINT},
+      	</if>
+    	<if test="suspensionState != null" >
+        SUSPENSION_STATE_ = #{suspensionState,jdbcType=INTEGER},
+      	</if>
+    	<if test="tenantId != null" >
+        TENANT_ID_ = #{tenantId,jdbcType=VARCHAR},
+      	</if>
+    	<if test="hasGraphicalNotation != null" >
+        HAS_GRAPHICAL_NOTATION_ = #{hasGraphicalNotation,jdbcType=TINYINT},
+      	</if>
+    </set>
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.ActReProcdef" >
+    update act_re_procdef
+    set 
+        REV_ = #{rev,jdbcType=INTEGER},
+        CATEGORY_ = #{category,jdbcType=VARCHAR},
+        NAME_ = #{name,jdbcType=VARCHAR},
+        KEY_ = #{key,jdbcType=VARCHAR},
+        VERSION_ = #{version,jdbcType=INTEGER},
+        DEPLOYMENT_ID_ = #{deploymentId,jdbcType=VARCHAR},
+        RESOURCE_NAME_ = #{resourceName,jdbcType=VARCHAR},
+        DGRM_RESOURCE_NAME_ = #{dgrmResourceName,jdbcType=VARCHAR},
+        DESCRIPTION_ = #{description,jdbcType=VARCHAR},
+        HAS_START_FORM_KEY_ = #{hasStartFormKey,jdbcType=TINYINT},
+        SUSPENSION_STATE_ = #{suspensionState,jdbcType=INTEGER},
+        TENANT_ID_ = #{tenantId,jdbcType=VARCHAR},
+        HAS_GRAPHICAL_NOTATION_ = #{hasGraphicalNotation,jdbcType=TINYINT},
+    where ID_ = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="queryActReProcdefList" parameterType="HashMap" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from act_re_procdef
+    where 1 = 1
+	<if test="category != null and category != ''" >
+	and CATEGORY_ = #{category,jdbcType=VARCHAR}
+	</if>
+	<if test="name != null and name != ''" >
+	and NAME_ like '%${name}%'
+	</if>
+	<if test="version != null and version != ''" >
+	and VERSION_ = #{version,jdbcType=INTEGER}
+	</if>
+	<if test="description != null and description != ''" >
+	and DESCRIPTION_ like '%${description}%'
+	</if>
+  </select>
+</mapper>

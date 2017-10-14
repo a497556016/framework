@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.WfFormFieldMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.vo.WfFormFieldVO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="form_id" property="formId" jdbcType="VARCHAR" />
+    <result column="column_code" property="columnCode" jdbcType="VARCHAR" />
+    <result column="column_name" property="columnName" jdbcType="VARCHAR" />
+    <result column="field_type" property="fieldType" jdbcType="VARCHAR" />
+    <result column="field_width" property="fieldWidth" jdbcType="DECIMAL" />
+    <result column="basic_type" property="basicType" jdbcType="VARCHAR" />
+    <result column="data_type" property="dataType" jdbcType="VARCHAR" />
+    <result column="edit_task" property="editTask" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+  	id,
+  	form_id,
+  	column_code,
+  	column_name,
+  	field_type,
+  	field_width,
+  	basic_type,
+  	data_type,
+  	edit_task
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_wf_form_field
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_wf_form_field
+   where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.framework.model.vo.WfFormFieldVO" >
+    insert into t_wf_form_field (
+		id,
+		form_id,
+		column_code,
+		column_name,
+		field_type,
+		field_width,
+		basic_type,
+		data_type,
+		edit_task
+    )
+    values (
+    	#{id,jdbcType=INTEGER},
+    	#{formId,jdbcType=VARCHAR},
+    	#{columnCode,jdbcType=VARCHAR},
+    	#{columnName,jdbcType=VARCHAR},
+    	#{fieldType,jdbcType=VARCHAR},
+    	#{fieldWidth,jdbcType=DECIMAL},
+    	#{basicType,jdbcType=VARCHAR},
+    	#{dataType,jdbcType=VARCHAR},
+    	#{editTask,jdbcType=VARCHAR}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.vo.WfFormFieldVO" >
+    insert into t_wf_form_field
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    	<if test="id != null" >
+        id,
+      	</if>
+    	<if test="formId != null" >
+        form_id,
+      	</if>
+    	<if test="columnCode != null" >
+        column_code,
+      	</if>
+    	<if test="columnName != null" >
+        column_name,
+      	</if>
+    	<if test="fieldType != null" >
+        field_type,
+      	</if>
+    	<if test="fieldWidth != null" >
+        field_width,
+      	</if>
+    	<if test="basicType != null" >
+        basic_type,
+      	</if>
+    	<if test="dataType != null" >
+        data_type,
+      	</if>
+    	<if test="editTask != null" >
+        edit_task,
+      	</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      	</if>
+      	<if test="formId != null" >
+        #{formId,jdbcType=VARCHAR},
+      	</if>
+      	<if test="columnCode != null" >
+        #{columnCode,jdbcType=VARCHAR},
+      	</if>
+      	<if test="columnName != null" >
+        #{columnName,jdbcType=VARCHAR},
+      	</if>
+      	<if test="fieldType != null" >
+        #{fieldType,jdbcType=VARCHAR},
+      	</if>
+      	<if test="fieldWidth != null" >
+        #{fieldWidth,jdbcType=DECIMAL},
+      	</if>
+      	<if test="basicType != null" >
+        #{basicType,jdbcType=VARCHAR},
+      	</if>
+      	<if test="dataType != null" >
+        #{dataType,jdbcType=VARCHAR},
+      	</if>
+      	<if test="editTask != null" >
+        #{editTask,jdbcType=VARCHAR},
+      	</if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.vo.WfFormFieldVO" >
+    update t_wf_form_field
+    <set >
+    	<if test="formId != null" >
+        form_id = #{formId,jdbcType=VARCHAR},
+      	</if>
+    	<if test="columnCode != null" >
+        column_code = #{columnCode,jdbcType=VARCHAR},
+      	</if>
+    	<if test="columnName != null" >
+        column_name = #{columnName,jdbcType=VARCHAR},
+      	</if>
+    	<if test="fieldType != null" >
+        field_type = #{fieldType,jdbcType=VARCHAR},
+      	</if>
+    	<if test="fieldWidth != null" >
+        field_width = #{fieldWidth,jdbcType=DECIMAL},
+      	</if>
+    	<if test="basicType != null" >
+        basic_type = #{basicType,jdbcType=VARCHAR},
+      	</if>
+    	<if test="dataType != null" >
+        data_type = #{dataType,jdbcType=VARCHAR},
+      	</if>
+    	<if test="editTask != null" >
+        edit_task = #{editTask,jdbcType=VARCHAR},
+      	</if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.vo.WfFormFieldVO" >
+    update t_wf_form_field
+    set 
+        form_id = #{formId,jdbcType=VARCHAR},
+        column_code = #{columnCode,jdbcType=VARCHAR},
+        column_name = #{columnName,jdbcType=VARCHAR},
+        field_type = #{fieldType,jdbcType=VARCHAR},
+        field_width = #{fieldWidth,jdbcType=DECIMAL},
+        basic_type = #{basicType,jdbcType=VARCHAR},
+        data_type = #{dataType,jdbcType=VARCHAR},
+        edit_task = #{editTask,jdbcType=VARCHAR},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="queryWfFormFieldList" parameterType="HashMap" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_wf_form_field
+    where 1 = 1
+  </select>
+</mapper>

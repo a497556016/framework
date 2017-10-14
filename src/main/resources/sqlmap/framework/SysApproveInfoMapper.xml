@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.SysApproveInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.SysApproveInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="business_key" property="businessKey" jdbcType="VARCHAR" />
+    <result column="approve_code" property="approveCode" jdbcType="VARCHAR" />
+    <result column="approve_role" property="approveRole" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.framework.model.SysApproveInfo" extends="BaseResultMap" >
+    <result column="remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_key, approve_code, approve_role, type, create_date, create_by, modify_date, 
+    modify_by
+  </sql>
+  <sql id="Blob_Column_List" >
+    remark
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.framework.model.SysApproveInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_approve_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.framework.model.SysApproveInfoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_approve_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_approve_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_approve_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.framework.model.SysApproveInfoExample" >
+    delete from sys_approve_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.framework.model.SysApproveInfo" >
+    insert into sys_approve_info (id, business_key, approve_code, 
+      approve_role, type, create_date, 
+      create_by, modify_date, modify_by, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{businessKey,jdbcType=VARCHAR}, #{approveCode,jdbcType=VARCHAR}, 
+      #{approveRole,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createBy,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.SysApproveInfo" >
+    insert into sys_approve_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessKey != null" >
+        business_key,
+      </if>
+      <if test="approveCode != null" >
+        approve_code,
+      </if>
+      <if test="approveRole != null" >
+        approve_role,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="businessKey != null" >
+        #{businessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="approveCode != null" >
+        #{approveCode,jdbcType=VARCHAR},
+      </if>
+      <if test="approveRole != null" >
+        #{approveRole,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.framework.model.SysApproveInfoExample" resultType="java.lang.Integer" >
+    select count(*) from sys_approve_info
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_approve_info
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessKey != null" >
+        business_key = #{record.businessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveCode != null" >
+        approve_code = #{record.approveCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.approveRole != null" >
+        approve_role = #{record.approveRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.createBy != null" >
+        create_by = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.modifyDate != null" >
+        modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifyBy != null" >
+        modify_by = #{record.modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update sys_approve_info
+    set id = #{record.id,jdbcType=INTEGER},
+      business_key = #{record.businessKey,jdbcType=VARCHAR},
+      approve_code = #{record.approveCode,jdbcType=VARCHAR},
+      approve_role = #{record.approveRole,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{record.modifyBy,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_approve_info
+    set id = #{record.id,jdbcType=INTEGER},
+      business_key = #{record.businessKey,jdbcType=VARCHAR},
+      approve_code = #{record.approveCode,jdbcType=VARCHAR},
+      approve_role = #{record.approveRole,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      create_by = #{record.createBy,jdbcType=VARCHAR},
+      modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{record.modifyBy,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.SysApproveInfo" >
+    update sys_approve_info
+    <set >
+      <if test="businessKey != null" >
+        business_key = #{businessKey,jdbcType=VARCHAR},
+      </if>
+      <if test="approveCode != null" >
+        approve_code = #{approveCode,jdbcType=VARCHAR},
+      </if>
+      <if test="approveRole != null" >
+        approve_role = #{approveRole,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.framework.model.SysApproveInfo" >
+    update sys_approve_info
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      approve_code = #{approveCode,jdbcType=VARCHAR},
+      approve_role = #{approveRole,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.SysApproveInfo" >
+    update sys_approve_info
+    set business_key = #{businessKey,jdbcType=VARCHAR},
+      approve_code = #{approveCode,jdbcType=VARCHAR},
+      approve_role = #{approveRole,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

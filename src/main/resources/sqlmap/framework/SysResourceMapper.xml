@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.SysResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.SysResource" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="res_name" property="resName" jdbcType="VARCHAR" />
+    <result column="res_code" property="resCode" jdbcType="VARCHAR" />
+    <result column="p_res_code" property="pResCode" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="menu_code" property="menuCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.framework.model.SysResource" extends="BaseResultMap" >
+    <result column="res_url" property="resUrl" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <resultMap type="com.framework.bean.vo.SysResourceTreeVo" id="SysResourceTreeMap" extends="ResultMapWithBLOBs">
+  
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  
+  <sql id="Base_Column_List" >
+    id, res_name, res_code, p_res_code, type, menu_code, create_date, create_by, modify_date, 
+    modify_by
+  </sql>
+  <sql id="Blob_Column_List" >
+    res_url
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from sys_resource
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_resource
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insertSelective" parameterType="com.framework.model.SysResource" >
+    insert into sys_resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resName != null" >
+        res_name,
+      </if>
+      <if test="resCode != null" >
+        res_code,
+      </if>
+      <if test="pResCode != null" >
+        p_res_code,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="menuCode != null" >
+        menu_code,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+      <if test="resUrl != null" >
+        res_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="resName != null" >
+        #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null" >
+        #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pResCode != null" >
+        #{pResCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null" >
+        #{resUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.SysResource" >
+    update sys_resource
+    <set >
+      <if test="resName != null" >
+        res_name = #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resCode != null" >
+        res_code = #{resCode,jdbcType=VARCHAR},
+      </if>
+      <if test="pResCode != null" >
+        p_res_code = #{pResCode,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="menuCode != null" >
+        menu_code = #{menuCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null" >
+        res_url = #{resUrl,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.framework.model.SysResource" >
+    update sys_resource
+    set res_name = #{resName,jdbcType=VARCHAR},
+      res_code = #{resCode,jdbcType=VARCHAR},
+      p_res_code = #{pResCode,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      menu_code = #{menuCode,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR},
+      res_url = #{resUrl,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.SysResource" >
+    update sys_resource
+    set res_name = #{resName,jdbcType=VARCHAR},
+      res_code = #{resCode,jdbcType=VARCHAR},
+      p_res_code = #{pResCode,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      menu_code = #{menuCode,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryResListByPCode" parameterType="String" resultMap="SysResourceTreeMap">
+  	select * from sys_resource where 1 = 1
+  	<if test='_parameter != "0"'>
+  	and p_res_code = (select res_code from sys_resource where id = #{_parameter})
+  	</if>
+  	<if test='_parameter == "0"'>
+  	and ifnull(p_res_code,'') = ''
+  	</if>
+  </select>
+</mapper>

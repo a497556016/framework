@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ssa.dao.GoodsMapper" >
+  <resultMap id="BaseResultMap" type="com.ssa.model.Goods" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="group" property="group" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="last_price" property="lastPrice" jdbcType="DECIMAL" />
+    <result column="shelves_status" property="shelvesStatus" jdbcType="CHAR" />
+    <result column="shelves_time" property="shelvesTime" jdbcType="TIMESTAMP" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+  	id,
+  	name,
+  	category_id,
+  	code,
+  	`group`,
+  	price,
+  	last_price,
+  	shelves_status,
+  	shelves_time,
+  	discount,
+  	create_by,
+  	create_date,
+  	modify_by,
+  	modify_date
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_goods
+   where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.ssa.model.Goods" >
+    insert into t_goods (
+		id,
+		name,
+		category_id,
+		code,
+		group,
+		price,
+		last_price,
+		shelves_status,
+		shelves_time,
+		discount,
+		create_by,
+		create_date,
+		modify_by,
+		modify_date
+    )
+    values (
+    	#{id,jdbcType=INTEGER},
+    	#{name,jdbcType=VARCHAR},
+    	#{categoryId,jdbcType=INTEGER},
+    	#{code,jdbcType=VARCHAR},
+    	#{group,jdbcType=VARCHAR},
+    	#{price,jdbcType=DECIMAL},
+    	#{lastPrice,jdbcType=DECIMAL},
+    	#{shelvesStatus,jdbcType=CHAR},
+    	#{shelvesTime,jdbcType=TIMESTAMP},
+    	#{discount,jdbcType=DECIMAL},
+    	#{createBy,jdbcType=VARCHAR},
+    	#{createDate,jdbcType=TIMESTAMP},
+    	#{modifyBy,jdbcType=VARCHAR},
+    	#{modifyDate,jdbcType=TIMESTAMP}
+    )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssa.model.Goods" >
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+    	<if test="id != null" >
+        id,
+      	</if>
+    	<if test="name != null" >
+        name,
+      	</if>
+    	<if test="categoryId != null" >
+        category_id,
+      	</if>
+    	<if test="code != null" >
+        code,
+      	</if>
+    	<if test="group != null" >
+        `group`,
+      	</if>
+    	<if test="price != null" >
+        price,
+      	</if>
+    	<if test="lastPrice != null" >
+        last_price,
+      	</if>
+    	<if test="shelvesStatus != null" >
+        shelves_status,
+      	</if>
+    	<if test="shelvesTime != null" >
+        shelves_time,
+      	</if>
+    	<if test="discount != null" >
+        discount,
+      	</if>
+    	<if test="createBy != null" >
+        create_by,
+      	</if>
+    	<if test="createDate != null" >
+        create_date,
+      	</if>
+    	<if test="modifyBy != null" >
+        modify_by,
+      	</if>
+    	<if test="modifyDate != null" >
+        modify_date,
+      	</if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      	<if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      	</if>
+      	<if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      	</if>
+      	<if test="categoryId != null" >
+        #{categoryId,jdbcType=INTEGER},
+      	</if>
+      	<if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      	</if>
+      	<if test="group != null" >
+        #{group,jdbcType=VARCHAR},
+      	</if>
+      	<if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      	</if>
+      	<if test="lastPrice != null" >
+        #{lastPrice,jdbcType=DECIMAL},
+      	</if>
+      	<if test="shelvesStatus != null" >
+        #{shelvesStatus,jdbcType=CHAR},
+      	</if>
+      	<if test="shelvesTime != null" >
+        #{shelvesTime,jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      	</if>
+      	<if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      	</if>
+      	<if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      	</if>
+      	<if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      	</if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssa.model.Goods" >
+    update t_goods
+    <set >
+    	<if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      	</if>
+    	<if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=INTEGER},
+      	</if>
+    	<if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      	</if>
+    	<if test="group != null" >
+        `group` = #{group,jdbcType=VARCHAR},
+      	</if>
+    	<if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      	</if>
+    	<if test="lastPrice != null" >
+        last_price = #{lastPrice,jdbcType=DECIMAL},
+      	</if>
+    	<if test="shelvesStatus != null" >
+        shelves_status = #{shelvesStatus,jdbcType=CHAR},
+      	</if>
+    	<if test="shelvesTime != null" >
+        shelves_time = #{shelvesTime,jdbcType=TIMESTAMP},
+      	</if>
+    	<if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      	</if>
+    	<if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      	</if>
+    	<if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      	</if>
+    	<if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      	</if>
+    	<if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      	</if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssa.model.Goods" >
+    update t_goods
+    set 
+        name = #{name,jdbcType=VARCHAR},
+        category_id = #{categoryId,jdbcType=INTEGER},
+        code = #{code,jdbcType=VARCHAR},
+        `group` = #{group,jdbcType=VARCHAR},
+        price = #{price,jdbcType=DECIMAL},
+        last_price = #{lastPrice,jdbcType=DECIMAL},
+        shelves_status = #{shelvesStatus,jdbcType=CHAR},
+        shelves_time = #{shelvesTime,jdbcType=TIMESTAMP},
+        discount = #{discount,jdbcType=DECIMAL},
+        create_by = #{createBy,jdbcType=VARCHAR},
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

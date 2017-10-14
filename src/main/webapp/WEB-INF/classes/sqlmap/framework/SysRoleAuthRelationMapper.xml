@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.SysRoleAuthRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.SysRoleAuthRelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+    <result column="auth_code" property="authCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, role_code, auth_code, create_date, create_by, modify_date, modify_by
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_auth_relation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_role_auth_relation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.framework.model.SysRoleAuthRelation" >
+    insert into sys_role_auth_relation (id, role_code, auth_code, 
+      create_date, create_by, modify_date, 
+      modify_by)
+    values (#{id,jdbcType=INTEGER}, #{roleCode,jdbcType=VARCHAR}, #{authCode,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.SysRoleAuthRelation" >
+    insert into sys_role_auth_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="roleCode != null" >
+        role_code,
+      </if>
+      <if test="authCode != null" >
+        auth_code,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authCode != null" >
+        #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.SysRoleAuthRelation" >
+    update sys_role_auth_relation
+    <set >
+      <if test="roleCode != null" >
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="authCode != null" >
+        auth_code = #{authCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.SysRoleAuthRelation" >
+    update sys_role_auth_relation
+    set role_code = #{roleCode,jdbcType=VARCHAR},
+      auth_code = #{authCode,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.ProFieldMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.ProField" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="form_id" property="formId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="comments" property="comments" jdbcType="VARCHAR" />
+    <result column="is_pri" property="isPri" jdbcType="CHAR" />
+    <result column="is_grid_col" property="isGridCol" jdbcType="CHAR" />
+    <result column="is_form_field" property="isFormField" jdbcType="CHAR" />
+    <result column="field_type" property="fieldType" jdbcType="CHAR" />
+    <result column="is_query" property="isQuery" jdbcType="CHAR" />
+    <result column="query_type" property="queryType" jdbcType="CHAR" />
+    <result column="basic_type" property="basicType" jdbcType="VARCHAR" />
+    <result column="expand_param" property="expandParam" jdbcType="VARCHAR" />
+    <result column="column_name" property="columnName" jdbcType="VARCHAR" />
+    <result column="data_type" property="dataType" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, form_id, name, comments, is_pri, is_grid_col, is_form_field, field_type, is_query, 
+    query_type, basic_type, expand_param, data_type, column_name, create_date, create_by, modify_date, modify_by
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pro_field
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_pro_field
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.framework.model.ProField" >
+    insert into t_pro_field (id, form_id, name, 
+      comments, is_pri, is_grid_col, 
+      is_form_field, field_type, is_query, 
+      query_type, basic_type, expand_param, column_name, data_type, 
+      create_date, create_by, modify_date, 
+      modify_by)
+    values (#{id,jdbcType=INTEGER}, #{formId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{comments,jdbcType=VARCHAR}, #{isPri,jdbcType=CHAR}, #{isGridCol,jdbcType=CHAR}, 
+      #{isFormField,jdbcType=CHAR}, #{fieldType,jdbcType=CHAR}, #{isQuery,jdbcType=CHAR}, 
+      #{queryType,jdbcType=CHAR}, #{basicType,jdbcType=VARCHAR}, #{expandParam,jdbcType=VARCHAR}, 
+      #{columnName,jdbcType=VARCHAR}, #{dataType,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.ProField" >
+    insert into t_pro_field
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="formId != null" >
+        form_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="comments != null" >
+        comments,
+      </if>
+      <if test="isPri != null" >
+        is_pri,
+      </if>
+      <if test="isGridCol != null" >
+        is_grid_col,
+      </if>
+      <if test="isFormField != null" >
+        is_form_field,
+      </if>
+      <if test="fieldType != null" >
+        field_type,
+      </if>
+      <if test="isQuery != null" >
+        is_query,
+      </if>
+      <if test="queryType != null" >
+        query_type,
+      </if>
+      <if test="basicType != null" >
+        basic_type,
+      </if>
+      <if test="expandParam != null" >
+        expand_param,
+      </if>
+      <if test="columnName != null" >
+        column_name,
+      </if>
+      <if test="dataType != null" >
+        data_type,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="formId != null" >
+        #{formId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="isPri != null" >
+        #{isPri,jdbcType=CHAR},
+      </if>
+      <if test="isGridCol != null" >
+        #{isGridCol,jdbcType=CHAR},
+      </if>
+      <if test="isFormField != null" >
+        #{isFormField,jdbcType=CHAR},
+      </if>
+      <if test="fieldType != null" >
+        #{fieldType,jdbcType=CHAR},
+      </if>
+      <if test="isQuery != null" >
+        #{isQuery,jdbcType=CHAR},
+      </if>
+      <if test="queryType != null" >
+        #{queryType,jdbcType=CHAR},
+      </if>
+      <if test="basicType != null" >
+        #{basicType,jdbcType=VARCHAR},
+      </if>
+      <if test="expandParam != null" >
+        #{expandParam,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null" >
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.ProField" >
+    update t_pro_field
+    <set >
+      <if test="formId != null" >
+        form_id = #{formId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="comments != null" >
+        comments = #{comments,jdbcType=VARCHAR},
+      </if>
+      <if test="isPri != null" >
+        is_pri = #{isPri,jdbcType=CHAR},
+      </if>
+      <if test="isGridCol != null" >
+        is_grid_col = #{isGridCol,jdbcType=CHAR},
+      </if>
+      <if test="isFormField != null" >
+        is_form_field = #{isFormField,jdbcType=CHAR},
+      </if>
+      <if test="fieldType != null" >
+        field_type = #{fieldType,jdbcType=CHAR},
+      </if>
+      <if test="isQuery != null" >
+        is_query = #{isQuery,jdbcType=CHAR},
+      </if>
+      <if test="queryType != null" >
+        query_type = #{queryType,jdbcType=CHAR},
+      </if>
+      <if test="basicType != null" >
+        basic_type = #{basicType,jdbcType=VARCHAR},
+      </if>
+      <if test="expandParam != null" >
+        expand_param = #{expandParam,jdbcType=VARCHAR},
+      </if>
+      <if test="columnName != null" >
+        column_name = #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="dataType != null" >
+        data_type = #{dataType,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.ProField" >
+    update t_pro_field
+    set form_id = #{formId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      comments = #{comments,jdbcType=VARCHAR},
+      is_pri = #{isPri,jdbcType=CHAR},
+      is_grid_col = #{isGridCol,jdbcType=CHAR},
+      is_form_field = #{isFormField,jdbcType=CHAR},
+      field_type = #{fieldType,jdbcType=CHAR},
+      is_query = #{isQuery,jdbcType=CHAR},
+      query_type = #{queryType,jdbcType=CHAR},
+      basic_type = #{basicType,jdbcType=VARCHAR},
+      expand_param = #{expandParam,jdbcType=VARCHAR},
+      column_name = #{columnName,jdbcType=VARCHAR},
+      data_type = #{dataType,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getTableFields" parameterType="String" resultType="com.framework.model.ProField">
+  	SELECT
+  		DISTINCT
+		column_name AS NAME,
+		COLUMN_COMMENT AS comments,
+		CASE COLUMN_KEY
+		WHEN 'PRI' THEN
+			'1'
+		ELSE
+			'0'
+		END AS isPri,
+		data_type as dataType
+	FROM
+		INFORMATION_SCHEMA. COLUMNS
+	WHERE
+		table_name = #{tableName}
+	ORDER BY ORDINAL_POSITION
+  </select>
+</mapper>

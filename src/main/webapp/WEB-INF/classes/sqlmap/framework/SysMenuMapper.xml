@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.SysMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.SysMenu" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sort_id" property="sortId" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="p_code" property="pCode" jdbcType="VARCHAR" />
+    <result column="text" property="text" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="CHAR" />
+    <result column="expanded" property="expanded" jdbcType="CHAR" />
+    <result column="leaf" property="leaf" jdbcType="CHAR" />
+    <result column="icon_cls" property="iconCls" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  	<resultMap id="SysMenuVoMap" type="com.framework.bean.vo.SysMenuVo" extends="BaseResultMap" >
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+ 	</resultMap>
+  <sql id="Base_Column_List" >
+    id, sort_id, code, p_code, text, type, expanded, leaf, icon_cls, create_date, 
+    create_by, modify_date, modify_by
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_menu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.framework.model.SysMenu" >
+    insert into sys_menu (id, sort_id, code, 
+      p_code, text, type, 
+      expanded, leaf, icon_cls, 
+      create_date, create_by, modify_date, 
+      modify_by)
+    values (#{id,jdbcType=INTEGER}, #{sortId,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, 
+      #{pCode,jdbcType=VARCHAR}, #{text,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, 
+      #{expanded,jdbcType=CHAR}, #{leaf,jdbcType=CHAR}, #{iconCls,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, #{modifyDate,jdbcType=TIMESTAMP}, 
+      #{modifyBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.SysMenu" >
+    insert into sys_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sortId != null" >
+        sort_id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="pCode != null" >
+        p_code,
+      </if>
+      <if test="text != null" >
+        text,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="expanded != null" >
+        expanded,
+      </if>
+      <if test="leaf != null" >
+        leaf,
+      </if>
+      <if test="iconCls != null" >
+        icon_cls,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sortId != null" >
+        #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="pCode != null" >
+        #{pCode,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null" >
+        #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="expanded != null" >
+        #{expanded,jdbcType=CHAR},
+      </if>
+      <if test="leaf != null" >
+        #{leaf,jdbcType=CHAR},
+      </if>
+      <if test="iconCls != null" >
+        #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.SysMenu" >
+    update sys_menu
+    <set >
+      <if test="sortId != null" >
+        sort_id = #{sortId,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="pCode != null" >
+        p_code = #{pCode,jdbcType=VARCHAR},
+      </if>
+      <if test="text != null" >
+        text = #{text,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="expanded != null" >
+        expanded = #{expanded,jdbcType=CHAR},
+      </if>
+      <if test="leaf != null" >
+        leaf = #{leaf,jdbcType=CHAR},
+      </if>
+      <if test="iconCls != null" >
+        icon_cls = #{iconCls,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.SysMenu" >
+    update sys_menu
+    set sort_id = #{sortId,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
+      p_code = #{pCode,jdbcType=VARCHAR},
+      text = #{text,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      expanded = #{expanded,jdbcType=CHAR},
+      leaf = #{leaf,jdbcType=CHAR},
+      icon_cls = #{iconCls,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+	<select id="queryMenuList" parameterType="com.framework.model.SysMenu" resultType="com.framework.model.SysMenu">
+		select 
+	    <include refid="Base_Column_List" />
+	    from sys_menu 
+	    where 1 = 1
+	    <if test="text != null and text != ''">
+	    and text like '%'+#{text}+'%'
+	    </if>
+	</select>
+	
+	<select id="queryMenuListByPCode" parameterType="String" resultMap="SysMenuVoMap">
+		select m.*,r.res_url as url from sys_menu m
+		LEFT JOIN sys_resource r on m.code = r.menu_code
+		WHERE 1 = 1
+		<if test='_parameter == "0"'>
+		and (m.p_code = '' or m.p_code is null)
+		</if>
+		<if test='_parameter != "0"'>
+		and m.p_code = #{_parameter}
+		</if>
+		ORDER BY m.sort_id
+	</select>
+	
+	<insert id="saveMenu" parameterType="java.util.List">
+		<foreach collection="list" item="menu">
+			<!-- 新增 -->
+			<if test="menu.id &lt; 0">
+				INSERT INTO sys_menu (
+					sort_id,
+					CODE,
+					p_code,
+					text,
+					type,
+					expanded,
+					leaf,
+					icon_cls,
+					create_date,
+					create_by
+				)
+				VALUES(
+					#{menu.sortId},
+					#{menu.code},
+					#{menu.pCode},
+					#{menu.text},
+					#{menu.type},
+					#{menu.expanded},
+					#{menu.leaf},
+					#{menu.iconCls},
+					sysdate(),
+					#{menu.createBy}
+				);
+    			INSERT INTO sys_resource (
+					res_name,
+					res_code,
+					p_res_code,
+					type,
+					res_url,
+					menu_code,
+					create_date,
+					create_by
+				)
+				values(
+					#{menu.text},
+					#{menu.code},
+					#{menu.pCode},
+					'menu',
+					#{menu.url},
+					#{menu.code},
+					sysdate(),
+					#{menu.createBy}
+				);
+			</if>
+			<!-- 修改 -->
+			<if test="menu.id &gt; 0">
+				update sys_resource set res_url = #{menu.url}
+				where menu_code = (select code from sys_menu where id = #{menu.id});
+				update sys_menu 
+				set 
+				sort_id = #{menu.sortId},code = #{menu.code},text = #{menu.text},
+				leaf = #{menu.leaf},expanded = #{menu.expanded},icon_cls = #{menu.iconCls}
+				where id = #{menu.id};
+			</if>
+		</foreach>
+	</insert>
+</mapper>

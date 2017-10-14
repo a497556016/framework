@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.SysUserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.SysUserInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="person_code" property="personCode" jdbcType="VARCHAR" />
+    <result column="last_name" property="lastName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile_phone" property="mobilePhone" jdbcType="VARCHAR" />
+    <result column="locked" property="locked" jdbcType="CHAR" />
+    <result column="dept_code" property="deptCode" jdbcType="VARCHAR" />
+    <result column="card_id" property="cardId" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, person_code, last_name, password, email, mobile_phone, locked, dept_code, card_id, create_date, create_by, 
+    modify_date, modify_by
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.framework.model.SysUserInfo" >
+    insert into sys_user_info (id, person_code, last_name, 
+      password, email, mobile_phone, locked, 
+      dept_code, create_date, create_by, 
+      modify_date, modify_by)
+    values (#{id,jdbcType=INTEGER}, #{personCode,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobilePhone,jdbcType=VARCHAR}, #{locked,jdbcType=CHAR}, 
+      #{deptCode,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createBy,jdbcType=VARCHAR}, 
+      #{modifyDate,jdbcType=TIMESTAMP}, #{modifyBy,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.SysUserInfo" >
+    insert into sys_user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="personCode != null" >
+        person_code,
+      </if>
+      <if test="lastName != null" >
+        last_name,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone,
+      </if>
+      <if test="locked != null" >
+        locked,
+      </if>
+      <if test="deptCode != null" >
+        dept_code,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="personCode != null" >
+        #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null" >
+        #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        #{locked,jdbcType=CHAR},
+      </if>
+      <if test="deptCode != null" >
+        #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.SysUserInfo" >
+    update sys_user_info
+    <set >
+      <if test="personCode != null" >
+        person_code = #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="lastName != null" >
+        last_name = #{lastName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilePhone != null" >
+        mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="locked != null" >
+        locked = #{locked,jdbcType=CHAR},
+      </if>
+      <if test="deptCode != null" >
+        dept_code = #{deptCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.SysUserInfo" >
+    update sys_user_info
+    set person_code = #{personCode,jdbcType=VARCHAR},
+      last_name = #{lastName,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile_phone = #{mobilePhone,jdbcType=VARCHAR},
+      locked = #{locked,jdbcType=CHAR},
+      dept_code = #{deptCode,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_by = #{createBy,jdbcType=VARCHAR},
+      modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      modify_by = #{modifyBy,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="queryUserList" parameterType="com.framework.model.SysUserInfo" resultType="com.framework.bean.vo.SysUserInfoListVo">
+  	select 
+  		ui.id,ui.person_code as personCode,ui.last_name as lastName,ui.email,ui.mobile_phone as mobilePhone,ui.locked,GROUP_CONCAT(r.role_name) as roleNames,d.name as deptName 
+  	from sys_user_info ui
+	LEFT JOIN sys_user_role_relation urr on ui.person_code = urr.person_code
+	LEFT JOIN sys_role r on urr.role_code = r.role_code
+	LEFT JOIN sys_department d on ui.dept_code = d.code
+	where 1 = 1
+  	<if test="personCode != null and personCode != ''">
+  		and ui.person_code like '%${personCode}%'
+  	</if>
+  	<if test="lastName != null and lastName != ''">
+  		and ui.last_name like '%${lastName}%'
+  	</if>
+	GROUP BY ui.id,ui.person_code,ui.last_name,ui.email,ui.locked,d.name
+  </select>
+</mapper>

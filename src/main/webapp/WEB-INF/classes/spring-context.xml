@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+       xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"  
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"  
+       xmlns:websocket="http://www.springframework.org/schema/websocket"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+       http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd  
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">  
+     
+    <!-- 该包下的类支持注解，表示会被当作{@code mybatis mapper}处理 配置了之后表示可以自动引入mapper类-->  
+    <!-- <mybatis:scan base-package="com.framework.dao"/>   -->
+    <!-- 开启事务注解驱动 -->  
+    <tx:annotation-driven />  
+    
+    <context:annotation-config/>
+
+	<context:component-scan base-package="com.framework" />	
+	<context:component-scan base-package="com.ssa" />	
+	<context:component-scan base-package="com.act" />
+    
+    <!--引入属性文件 -->  
+    <context:property-placeholder location="classpath:configuration.properties,classpath:redis.properties"/>  
+      
+    <!--数据库连接-->  
+    <!-- 配置数据源 -->  
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">  
+		<property name="driverClassName" value="${jdbc.driver}"/>  
+		<property name="url" value="${jdbc.url}"/>  
+		<property name="username" value="${jdbc.username}"/>  
+		<property name="password" value="${jdbc.password}"/>  
+		<property name="initialSize" value="5"></property>
+		<property name="maxActive" value="30"></property>
+		<property name="maxIdle" value="20"></property>
+		<property name="minIdle" value="1"></property>
+		<!-- 设置在自动回收超时连接的时候打印连接的超时错误  -->  
+		<property name="logAbandoned" value="true"/>  
+		<!-- 设置自动回收超时连接 -->  
+		<property name="removeAbandoned"  value="true"/> 
+		<!-- 自动回收超时时间(以秒数为单位) -->  
+		<property name="removeAbandonedTimeout" value="10"/> 
+		<!-- 超时等待时间以毫秒为单位  -->  
+		<property name="maxWait" value="100"/>  
+	</bean>
+    
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->  
+    <!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">  
+        <property name="dataSource" ref="dataSource" />  
+        <property name="configLocation" value="classpath:mybatis-config.xml" /> 
+    </bean> -->
+    <!-- Mybatis-Plus -->
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+	    <!-- 配置数据源 -->
+	    <property name="dataSource" ref="dataSource"/>
+	    <!-- 自动扫描 Xml 文件位置 -->
+	    <property name="mapperLocations" value="classpath:sqlmap/**/*.xml"/>
+	    <!-- 配置 Mybatis 配置文件（可无） -->
+	    <property name="configLocation" value="classpath:mybatis-config.xml"/>
+	    <!-- 配置包别名 -->
+	    <property name="typeAliasesPackage" value="com.**.model"/>
+	
+	    <!-- 以上配置和传统 Mybatis 一致 -->
+	
+	    <!-- 插件配置 -->
+	    <property name="plugins">
+	        <array>
+	            <!-- 分页插件配置 -->
+	            <bean id="paginationInterceptor" class="com.baomidou.mybatisplus.plugins.PaginationInterceptor">
+	                <!-- 指定数据库方言 -->
+	                <property name="dialectType" value="mysql"/>
+	            </bean>
+	            <!-- 如需要开启其他插件，可配置于此 -->
+	        </array>
+	    </property>
+	
+	    <!-- MP 全局配置注入 -->
+	    <property name="globalConfig" ref="globalConfig"/>
+	</bean>
+	<!-- 定义 MP 全局策略 -->
+	<bean id="globalConfig" class="com.baomidou.mybatisplus.entity.GlobalConfiguration">
+	    <!-- 主键策略配置 -->
+	    <!-- 可选参数
+	        AUTO->`0`("数据库ID自增")
+	        INPUT->`1`(用户输入ID")
+	        ID_WORKER->`2`("全局唯一ID")
+	        UUID->`3`("全局唯一ID")
+	    -->
+	    <property name="idType" value="0"/>
+	
+	    <!-- 数据库类型配置 -->
+	    <!-- 可选参数（默认mysql）
+	        MYSQL->`mysql`
+	        ORACLE->`oracle`
+	        DB2->`db2`
+	        H2->`h2`
+	        HSQL->`hsql`
+	        SQLITE->`sqlite`
+	        POSTGRE->`postgresql`
+	        SQLSERVER2005->`sqlserver2005`
+	        SQLSERVER->`sqlserver`
+	    -->
+	    <property name="dbType" value="mysql"/>
+	
+	    <!-- 全局表为下划线命名设置 true -->
+	    <property name="dbColumnUnderline" value="true"/>
+	</bean>
+	<!-- DAO接口所在包名，Spring会自动查找其下的类 -->  
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">  
+        <property name="basePackage" value="com.**.dao" />  
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>  
+    </bean>
+    
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	 	<property name="dataSource" ref="dataSource" />
+	</bean>
+    <!-- <tx:annotation-driven transaction-manager="transactionManager"/> -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <!--表示所有方法都加入事务控制 -->  
+            <tx:method name="*" propagation="REQUIRED" />  
+        </tx:attributes>
+    </tx:advice>
+    
+    <aop:config>
+		<aop:advisor advice-ref="txAdvice" pointcut="execution(* com.framework.service.impl..*.*(..))
+		or execution(* com.framework.shiro.service.impl..*.*(..))"/>
+	</aop:config>
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+  
+   
+    
+    <!-- 配置freemarker -->
+    <bean id="freemarkerConfigurer" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+	  	<property name="templateLoaderPath" value="classpath:templates/ftl" />
+	  	<property name="freemarkerSettings">
+	    	<props>
+	      		<prop key="template_update_delay">10</prop>
+	      		<prop key="defaultEncoding">UTF-8</prop>
+	    	</props>
+	  	</property>
+	</bean>
+	
+	<!-- 缓存配置 -->
+	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+		<property name="configLocation" value="classpath:${ehcache.configFile}" />
+	</bean>
+    
+    <bean id="gson" class="com.google.gson.Gson"></bean>
+    <!-- <bean id="userLoginMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	    <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	    <property name="mapperInterface" value="com.framework.dao.UserLoginMapper" />
+	</bean> -->
+	<!-- <bean id="userLoginMapper" class="com.framework.dao.UserLoginMapper"></bean> -->
+	<bean id="userLoginService" class="com.framework.shiro.service.impl.UserLoginServiceImpl">
+    	<property name="userLoginMapper" ref="userLoginMapper"/>
+    </bean>
+    
+</beans> 

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.framework.shiro.dao.UserLoginMapper">
+	<resultMap id="SysUserInfoMap" type="com.framework.model.SysUserInfo">
+	    <id column="id" jdbcType="INTEGER" property="id" />
+	    <result column="person_code" jdbcType="VARCHAR" property="personCode" />
+	    <result column="last_name" jdbcType="VARCHAR" property="lastName" />
+	    <result column="password" jdbcType="VARCHAR" property="password" />
+	    <result column="email" jdbcType="VARCHAR" property="email" />
+	    <result column="locked" jdbcType="CHAR" property="locked" />
+	    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+	    <result column="create_by" jdbcType="VARCHAR" property="createBy" />
+	    <result column="modify_date" jdbcType="TIMESTAMP" property="modifyDate" />
+	    <result column="modify_by" jdbcType="VARCHAR" property="modifyBy" />
+  	</resultMap>
+  	<resultMap id="SysCommonFileInfoMap" type="com.framework.model.SysCommonFileInfo" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="business_id" property="businessId" jdbcType="VARCHAR" />
+	    <result column="business_type" property="businessType" jdbcType="VARCHAR" />
+	    <result column="file_type" property="fileType" jdbcType="VARCHAR" />
+	    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+	    <result column="path" property="path" jdbcType="VARCHAR" />
+	    <result column="water_path" property="waterPath" jdbcType="VARCHAR" />
+	    <result column="thumb_path" property="thumbPath" jdbcType="VARCHAR" />
+	    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+	    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+	    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  	</resultMap>
+  	<resultMap id="SysRoleMap" type="com.framework.model.SysRole" >
+    	<id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+	    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+	    <result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+	    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+	    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  	</resultMap>
+  	<resultMap id="SysResourceMap" type="com.framework.model.SysResource" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="res_name" property="resName" jdbcType="VARCHAR" />
+	    <result column="res_code" property="resCode" jdbcType="VARCHAR" />
+	    <result column="p_res_code" property="pResCode" jdbcType="VARCHAR" />
+	    <result column="type" property="type" jdbcType="VARCHAR" />
+	    <result column="res_url" property="resUrl" jdbcType="LONGVARCHAR" />
+	    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+	    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+	    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="SysMenuMap" type="com.framework.bean.vo.SysMenuVo" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="sort_id" property="sortId" jdbcType="INTEGER" />
+	    <result column="code" property="code" jdbcType="VARCHAR" />
+	    <result column="p_code" property="pCode" jdbcType="VARCHAR" />
+	    <result column="text" property="text" jdbcType="VARCHAR" />
+	    <result column="url" property="url" jdbcType="VARCHAR" />
+	    <result column="type" property="type" jdbcType="CHAR" />
+	    <result column="expanded" property="expanded" jdbcType="CHAR" />
+	    <result column="leaf" property="leaf" jdbcType="CHAR" />
+	    <result column="icon_cls" property="iconCls" jdbcType="VARCHAR" />
+	    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+	    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+	    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  	</resultMap>
+
+  	<resultMap id="SysAuthorityMap" type="com.framework.model.SysAuthority" >
+	    <id column="id" property="id" jdbcType="INTEGER" />
+	    <result column="auth_name" property="authName" jdbcType="VARCHAR" />
+	    <result column="auth_code" property="authCode" jdbcType="VARCHAR" />
+	    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+	    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+	    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+	    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  	</resultMap>
+  	<resultMap id="ResourceMap" type="com.framework.shiro.bean.Resource" extends="SysResourceMap">
+	    <collection property="authorities" select="selectAuthoritiesByResCode" column="res_code"></collection>
+  	</resultMap>
+  	<resultMap type="com.framework.shiro.bean.UserInfo" id="UserInfoMap" extends="SysUserInfoMap">
+  		<collection property="roles" column="person_code" select="selectRolesByPersonCode"></collection>
+  	</resultMap>
+  	<resultMap type="com.framework.shiro.bean.Role" id="RoleMap" extends="SysRoleMap">
+  		<collection property="authorities" column="role_code" select="selectAuthoritiesByRoleCode"></collection>
+  	</resultMap>
+	
+	<select id="selectRolesByPersonCode" parameterType="String" resultMap="RoleMap">
+		select r.* from sys_role r
+		join sys_user_role_relation urr 
+		on urr.role_code = r.role_code where urr.person_code = #{personCode}
+	</select>
+	<select id="selectAuthoritiesByRoleCode" parameterType="String"	resultMap="SysAuthorityMap">
+		select a.* from sys_authority a
+		join sys_role_auth_relation rar
+		on a.auth_code = rar.auth_code
+		where rar.role_code = #{role_code}
+	</select>
+	<select id="getUserInfoByPersonCode" parameterType="String" resultMap="UserInfoMap">
+		select * from sys_user_info where person_code = #{personCode}
+	</select>
+	
+	<select id="getAllResource" resultMap="ResourceMap">
+		select * from sys_resource
+	</select>
+	<select id="selectAuthoritiesByResCode" parameterType="String" resultMap="SysAuthorityMap">
+		select a.* from sys_authority a
+		join sys_auth_res_relation arr
+		on a.auth_code = arr.auth_code 
+		where arr.res_code = #{resCode}
+	</select>
+	
+	<resultMap type="com.framework.shiro.bean.Menu" id="MenuMap" extends="SysMenuMap">
+		
+	</resultMap>
+	<select id="selectChildMenuByPCode" parameterType="HashMap" resultMap="SysMenuMap">
+		select distinct sm.*,sr.res_url as url from sys_menu sm 
+		left join sys_resource sr on sm.code = sr.menu_code 
+		join sys_auth_res_relation arr on sr.res_code = arr.res_code
+		join sys_role_auth_relation rar on arr.auth_code = rar.auth_code
+		join sys_user_role_relation urr on rar.role_code = urr.role_code
+		where sm.p_code = #{pCode}
+		and urr.person_code = #{personCode}
+		and sr.type = 'menu'
+		order by sm.sort_id
+	</select>
+	<select id="getMenusByPersonCode" parameterType="String" resultMap="MenuMap">
+		select distinct sm.*,sr.res_url as url from sys_menu sm
+		left join sys_resource sr on sm.code = sr.menu_code 
+		join sys_auth_res_relation arr on sr.res_code = arr.res_code
+		join sys_role_auth_relation rar on arr.auth_code = rar.auth_code
+		join sys_user_role_relation urr on rar.role_code = urr.role_code
+		where urr.person_code = #{personCode}
+		and sr.type = 'menu'
+		and IFNULL(sm.p_code,'') = ''
+		order by sm.sort_id
+	</select>
+	
+</mapper>

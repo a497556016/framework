@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.ProTableMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.ProTable" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="table_name" property="tableName" jdbcType="VARCHAR" />
+    <result column="table_desc" property="tableDesc" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    id, table_name, table_desc
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pro_table
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_pro_table
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.framework.model.ProTable" >
+    insert into t_pro_table (id, table_name, table_desc
+      )
+    values (#{id,jdbcType=INTEGER}, #{tableName,jdbcType=VARCHAR}, #{tableDesc,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.framework.model.ProTable" >
+    insert into t_pro_table
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="tableName != null" >
+        table_name,
+      </if>
+      <if test="tableDesc != null" >
+        table_desc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tableName != null" >
+        #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableDesc != null" >
+        #{tableDesc,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.ProTable" >
+    update t_pro_table
+    <set >
+      <if test="tableName != null" >
+        table_name = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="tableDesc != null" >
+        table_desc = #{tableDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+    <!-- 修改表注释 -->
+    <if test="tableDesc != null" >
+    ALTER TABLE t_pro_table COMMENT = #{tableDesc,jdbcType=VARCHAR}
+    </if>
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.framework.model.ProTable" >
+    update t_pro_table
+    set table_name = #{tableName,jdbcType=VARCHAR},
+      table_desc = #{tableDesc,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="refreshTables" parameterType="String">
+  	INSERT INTO t_pro_table(table_name,table_desc)
+  	select * from
+  	(
+		SELECT
+			t.table_name,
+			t.TABLE_COMMENT
+		FROM
+			INFORMATION_SCHEMA. TABLES t
+		LEFT JOIN t_pro_table tpt on t.TABLE_NAME = tpt.table_name
+		WHERE
+			t.TABLE_SCHEMA = #{catalog}
+			and tpt.table_name is NULL
+		UNION all
+		SELECT
+			tpt.table_name,
+			tpt.table_desc
+		FROM
+			INFORMATION_SCHEMA. TABLES t
+		RIGHT JOIN t_pro_table tpt on t.TABLE_NAME = tpt.table_name
+		WHERE
+			t.TABLE_SCHEMA = #{catalog}
+			and t.TABLE_NAME is null
+	) t
+	where t.table_name not like 'act_%'
+  </update>
+  <select id="queryTableColumns"  parameterType="String"  resultType="com.framework.bean.TableColumn">
+  	SELECT
+		COLUMN_NAME as name,
+		COLUMN_COMMENT as comments,
+		COLUMN_TYPE as type,
+		COLUMN_DEFAULT as defaultValue
+	FROM
+		INFORMATION_SCHEMA. COLUMNS
+	WHERE
+		table_name = #{tableName}
+  </select>
+  
+  <select id="sqlSearch" parameterType="Map" resultType="HashMap">
+  	${sql}
+  	<if test="limit != 0">
+      limit ${offset},${limit}
+    </if>
+  </select>
+  <select id="sqlSearchCount" parameterType="Map" resultType="Long">
+  	select count(0) from (${sql}) t
+  </select>
+  <update id="sqlUpdate" parameterType="Map">
+  	${sql}
+  </update>
+</mapper>

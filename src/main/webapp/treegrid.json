@@ -1,0 +1,11 @@
+[{
+	text : 'adad',
+	code : 'adasda',
+	children : [{
+		text : '666',
+		leaf : true
+	}]
+},{
+	text : 'ddd',
+	leaf : true
+}]

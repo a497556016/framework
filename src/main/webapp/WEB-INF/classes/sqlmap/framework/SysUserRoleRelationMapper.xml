@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.framework.dao.SysUserRoleRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.framework.model.SysUserRoleRelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="person_code" property="personCode" jdbcType="VARCHAR" />
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="RoleResultMap" type="com.framework.model.SysRole" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_code" property="roleCode" jdbcType="VARCHAR" />
+    <result column="role_name" property="roleName" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+    <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
+    <result column="modify_by" property="modifyBy" jdbcType="VARCHAR" />
+  </resultMap>
+ 
+  <sql id="Base_Column_List" >
+    id, person_code, role_code, create_date, create_by, modify_date, modify_by
+  </sql>
+
+  <insert id="insertSelective" parameterType="com.framework.model.SysUserRoleRelation" >
+    insert into sys_user_role_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="personCode != null" >
+        person_code,
+      </if>
+      <if test="roleCode != null" >
+        role_code,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="createBy != null" >
+        create_by,
+      </if>
+      <if test="modifyDate != null" >
+        modify_date,
+      </if>
+      <if test="modifyBy != null" >
+        modify_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="personCode != null" >
+        #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.framework.model.SysUserRoleRelation" >
+    update sys_user_role_relation
+    <set >
+      <if test="personCode != null" >
+        person_code = #{personCode,jdbcType=VARCHAR},
+      </if>
+      <if test="roleCode != null" >
+        role_code = #{roleCode,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createBy != null" >
+        create_by = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyDate != null" >
+        modify_date = #{modifyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyBy != null" >
+        modify_by = #{modifyBy,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectRoleByPersonCode" parameterType="String" resultMap="RoleResultMap">
+  	select sr.* from sys_user_role_relation urr
+  	join sys_role sr on urr.role_code = sr.role_code
+  	where urr.person_code = #{_parameter}
+  </select>
+</mapper>
